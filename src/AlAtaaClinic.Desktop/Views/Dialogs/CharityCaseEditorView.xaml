@@ -1,0 +1,52 @@
+<UserControl x:Class="AlAtaaClinic.Desktop.Views.Dialogs.CharityCaseEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:AlAtaaClinic.Desktop.Controls">
+    <StackPanel>
+        <controls:ValidationSummary Messages="{Binding ValidationMessages}" Margin="0,0,0,16" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Text="Patient ID" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding PatientId, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Case Number" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding CaseNumber, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Margin="0,12,0,0">
+                <TextBlock Text="Status" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <ComboBox ItemsSource="{Binding Statuses}" SelectedItem="{Binding EligibilityStatus}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,12,0,0">
+                <TextBlock Text="Coverage %" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding CoveragePercentage, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Margin="0,12,0,0">
+                <TextBlock Text="Valid From" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <DatePicker SelectedDate="{Binding ValidFrom}" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,12,0,0">
+                <TextBlock Text="Valid To" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <DatePicker SelectedDate="{Binding ValidTo}" />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Margin="0,12,0,0">
+                <TextBlock Text="Notes" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                         MinHeight="70"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True" />
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

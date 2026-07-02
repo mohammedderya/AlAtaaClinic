@@ -1,0 +1,181 @@
+<Window x:Class="AlAtaaClinic.Desktop.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:AlAtaaClinic.Desktop.Views"
+        xmlns:vm="clr-namespace:AlAtaaClinic.Desktop.ViewModels"
+        xmlns:services="clr-namespace:AlAtaaClinic.Desktop.Services"
+        Title="{Binding Source={x:Static services:TranslationService.Default}, Path=[AppTitle], Mode=OneWay}"
+        Icon="pack://application:,,,/app.ico"
+        Width="1400"
+        Height="860"
+        MinWidth="1080"
+        MinHeight="720"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="{Binding Source={x:Static services:TranslationService.Default}, Path=FlowDirection, Mode=OneWay}">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:DashboardViewModel}"><views:DashboardView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BranchesViewModel}"><views:BranchesView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DepartmentsViewModel}"><views:DepartmentsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PatientsViewModel}"><views:PatientsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PatientHistoryViewModel}"><views:PatientHistoryView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StaffMembersViewModel}"><views:StaffMembersView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DoctorsViewModel}"><views:DoctorsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AppointmentsViewModel}"><views:AppointmentsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VisitsViewModel}"><views:VisitsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BillingViewModel}"><views:BillingView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CharityCasesViewModel}"><views:CharityCasesView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InventoryViewModel}"><views:InventoryView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ReportsViewModel}"><views:ReportsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}"><views:SettingsView /></DataTemplate>
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource Brush.Background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="256" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Background="{DynamicResource Brush.Navigation}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Brand -->
+                <StackPanel Margin="20,20,20,28">
+                    <Grid Width="48" Height="48" HorizontalAlignment="Left">
+                        <Ellipse>
+                            <Ellipse.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#0891B2" Offset="0" />
+                                    <GradientStop Color="#06B6D4" Offset="1" />
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock Text="AC" Foreground="White" FontFamily="{StaticResource Font.App}"
+                                   FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <TextBlock Text="{Binding Source={x:Static services:TranslationService.Default}, Path=[OrganizationName], Mode=OneWay}"
+                               Foreground="White" FontFamily="{StaticResource Font.App}"
+                               FontSize="16" FontWeight="SemiBold" Margin="0,12,0,0" />
+                    <TextBlock Text="{Binding Source={x:Static services:TranslationService.Default}, Path=[AppSubtitle], Mode=OneWay}"
+                               Foreground="{DynamicResource Brush.NavigationText}" FontFamily="{StaticResource Font.Body}"
+                               FontSize="11" Margin="0,4,0,0" />
+                </StackPanel>
+
+                <!-- Navigation -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="8,0">
+                    <ItemsControl ItemsSource="{Binding NavigationItems}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource NavButton}"
+                                        Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        Margin="0,1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="36" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Width="28" Height="28" CornerRadius="6"
+                                                Background="Transparent" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Icon}" FontWeight="SemiBold" FontSize="13"
+                                                       Foreground="{DynamicResource Brush.NavigationText}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <TextBlock Grid.Column="1" Text="{Binding Title}"
+                                                   Foreground="{DynamicResource Brush.NavigationText}"
+                                                   VerticalAlignment="Center" FontSize="13" />
+                                    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Bottom -->
+                <StackPanel Grid.Row="2" Margin="12,12,12,16">
+                    <Border Background="{DynamicResource Brush.NavigationHover}" CornerRadius="8" Padding="12,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Width="32" Height="32" VerticalAlignment="Center">
+                                <Ellipse Fill="{DynamicResource Brush.Primary}" />
+                                <TextBlock Text="{Binding CurrentUserInitial}" Foreground="White" FontSize="12"
+                                           FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <TextBlock Grid.Column="1" Text="{Binding CurrentUserDisplay}" Foreground="White"
+                                       FontSize="12" FontWeight="Medium" VerticalAlignment="Center" Margin="10,0,0,0" />
+                        </Grid>
+                    </Border>
+                    <Button Style="{StaticResource NavButton}" Margin="0,4,0,0"
+                            Command="{Binding ToggleThemeCommand}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="28" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="&#x263C;" FontSize="14" Foreground="{DynamicResource Brush.Accent}"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="{Binding Source={x:Static services:TranslationService.Default}, Path=[Common.Theme], Mode=OneWay}"
+                                       Foreground="{DynamicResource Brush.NavigationText}" VerticalAlignment="Center" FontSize="13" />
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource NavButton}" Margin="0,2,0,0"
+                            Command="{Binding SwitchLanguageCommand}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="28" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="&#x2709;" FontSize="14" Foreground="{DynamicResource Brush.Primary}"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="{Binding Source={x:Static services:TranslationService.Default}, Path=CurrentLanguageName, Mode=OneWay}"
+                                       Foreground="{DynamicResource Brush.NavigationText}" VerticalAlignment="Center" FontSize="13" />
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Column="1" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Background="{DynamicResource Brush.Surface}"
+                    BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1"
+                    Padding="28,14,28,14" Effect="{DynamicResource Shadow.Header}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding CurrentPageTitle}"
+                               FontFamily="{StaticResource Font.App}" FontSize="22" FontWeight="SemiBold"
+                               Foreground="{DynamicResource Brush.Text}" VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Grid Width="36" Height="36">
+                            <Ellipse Fill="{DynamicResource Brush.PrimaryLight}" />
+                            <TextBlock Text="{Binding CurrentUserInitial}" Foreground="{DynamicResource Brush.Primary}"
+                                       FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Content -->
+            <Border Grid.Row="1" Margin="28,20,28,20" Background="Transparent">
+                <ContentControl Content="{Binding CurrentViewModel}" />
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

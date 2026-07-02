@@ -1,0 +1,207 @@
+<UserControl x:Class="AlAtaaClinic.Desktop.Views.Dialogs.VisitEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:AlAtaaClinic.Desktop.ViewModels.Dialogs"
+             xmlns:controls="clr-namespace:AlAtaaClinic.Desktop.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="560">
+        <StackPanel>
+            <controls:ValidationSummary Messages="{Binding ValidationMessages}" Margin="0,0,0,10" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Branch" Style="{StaticResource Text.Muted}" />
+                    <ComboBox ItemsSource="{Binding Branches}"
+                              SelectedItem="{Binding SelectedBranch}"
+                              DisplayMemberPath="ArabicName" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Patient" Style="{StaticResource Text.Muted}" />
+                    <ComboBox ItemsSource="{Binding Patients}"
+                              SelectedItem="{Binding SelectedPatient}"
+                              DisplayMemberPath="FullNameArabic" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                    <TextBlock Text="Doctor" Style="{StaticResource Text.Muted}" />
+                    <ComboBox ItemsSource="{Binding Doctors}"
+                              SelectedItem="{Binding SelectedDoctor}"
+                              DisplayMemberPath="StaffMemberName" />
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0">
+                    <TextBlock Text="Status" Style="{StaticResource Text.Muted}" />
+                    <ComboBox ItemsSource="{Binding Statuses}" SelectedItem="{Binding Status}" />
+                </StackPanel>
+            </Grid>
+
+            <TextBlock Text="Chief Complaint" Style="{StaticResource Text.Muted}" Margin="0,12,0,0" />
+            <TextBox Text="{Binding ChiefComplaint, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Text="Clinical Notes" Style="{StaticResource Text.Muted}" Margin="0,10,0,0" />
+            <TextBox Text="{Binding ClinicalNotes, UpdateSourceTrigger=PropertyChanged}" MinHeight="80" TextWrapping="Wrap" AcceptsReturn="True" />
+
+            <!-- Vital Signs -->
+            <Border Background="{DynamicResource Brush.SurfaceAlt}" CornerRadius="6" Padding="10" Margin="0,14,0,0">
+                <StackPanel>
+                    <TextBlock Text="Vital Signs" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <ItemsControl ItemsSource="{Binding VitalSigns}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:VitalSignEntry}">
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Systolic" FontSize="11" />
+                                        <TextBox Text="{Binding SystolicPressure, TargetNullValue=''}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Margin="4,0,0,0">
+                                        <TextBlock Text="Diastolic" FontSize="11" />
+                                        <TextBox Text="{Binding DiastolicPressure, TargetNullValue=''}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" Margin="4,0,0,0">
+                                        <TextBlock Text="Temp" FontSize="11" />
+                                        <TextBox Text="{Binding Temperature, TargetNullValue=''}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3" Margin="4,0,0,0">
+                                        <TextBlock Text="Weight" FontSize="11" />
+                                        <TextBox Text="{Binding WeightKg, TargetNullValue=''}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" Margin="4,0,0,0">
+                                        <TextBlock Text="Height" FontSize="11" />
+                                        <TextBox Text="{Binding HeightCm, TargetNullValue=''}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="5" Margin="4,0,0,0">
+                                        <TextBlock Text="Pulse" FontSize="11" />
+                                        <TextBox Text="{Binding Pulse, TargetNullValue=''}" />
+                                    </StackPanel>
+                                    <Button Grid.Column="6" Content="✕" Width="28" Height="28" Margin="6,0,0,0"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.RemoveVitalSignCommand}"
+                                            CommandParameter="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Content="+ Add Vital Signs" Style="{StaticResource Button.Secondary}" Margin="0,6,0,0"
+                            Command="{Binding AddVitalSignCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Diagnoses -->
+            <Border Background="{DynamicResource Brush.SurfaceAlt}" CornerRadius="6" Padding="10" Margin="0,10,0,0">
+                <StackPanel>
+                    <TextBlock Text="Diagnoses" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <ItemsControl ItemsSource="{Binding Diagnoses}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:DiagnosisEntry}">
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Text="{Binding DiagnosisCode, TargetNullValue=''}" ToolTip="Code" />
+                                    <TextBox Grid.Column="1" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="4,0,0,0" ToolTip="Description" />
+                                    <CheckBox Grid.Column="2" IsChecked="{Binding IsPrimary}" Content="Primary" Margin="8,0,0,0" VerticalAlignment="Center" />
+                                    <Button Grid.Column="3" Content="✕" Width="28" Height="28" Margin="6,0,0,0"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.RemoveDiagnosisCommand}"
+                                            CommandParameter="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Content="+ Add Diagnosis" Style="{StaticResource Button.Secondary}" Margin="0,6,0,0"
+                            Command="{Binding AddDiagnosisCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Procedures -->
+            <Border Background="{DynamicResource Brush.SurfaceAlt}" CornerRadius="6" Padding="10" Margin="0,10,0,0">
+                <StackPanel>
+                    <TextBlock Text="Procedures" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <ItemsControl ItemsSource="{Binding Procedures}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:ProcedureEntry}">
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Text="{Binding ProcedureName, UpdateSourceTrigger=PropertyChanged}" ToolTip="Procedure Name" />
+                                    <TextBox Grid.Column="1" Text="{Binding Notes, TargetNullValue=''}" Margin="4,0,0,0" ToolTip="Notes" />
+                                    <Button Grid.Column="2" Content="✕" Width="28" Height="28" Margin="6,0,0,0"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.RemoveProcedureCommand}"
+                                            CommandParameter="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Content="+ Add Procedure" Style="{StaticResource Button.Secondary}" Margin="0,6,0,0"
+                            Command="{Binding AddProcedureCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Prescriptions -->
+            <Border Background="{DynamicResource Brush.SurfaceAlt}" CornerRadius="6" Padding="10" Margin="0,10,0,0">
+                <StackPanel>
+                    <TextBlock Text="Prescriptions" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <ItemsControl ItemsSource="{Binding Prescriptions}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:PrescriptionEntry}">
+                                <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1" CornerRadius="4" Padding="8" Margin="0,4">
+                                    <StackPanel>
+                                        <TextBlock Text="Prescription Notes" Style="{StaticResource Text.Muted}" />
+                                        <TextBox Text="{Binding Notes, TargetNullValue=''}" />
+                                        <TextBlock Text="Items" FontWeight="SemiBold" Margin="0,8,0,4" />
+                                        <ItemsControl ItemsSource="{Binding Items}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type vm:PrescriptionDrugItem}">
+                                                    <Grid Margin="0,3">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="60" />
+                                                            <ColumnDefinition Width="70" />
+                                                            <ColumnDefinition Width="60" />
+                                                            <ColumnDefinition Width="50" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBox Text="{Binding MedicineName, UpdateSourceTrigger=PropertyChanged}" ToolTip="Medicine" />
+                                                        <TextBox Grid.Column="1" Text="{Binding Dosage, UpdateSourceTrigger=PropertyChanged}" Margin="3,0,0,0" ToolTip="Dosage" />
+                                                        <TextBox Grid.Column="2" Text="{Binding Frequency, UpdateSourceTrigger=PropertyChanged}" Margin="3,0,0,0" ToolTip="Frequency" />
+                                                        <TextBox Grid.Column="3" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" Margin="3,0,0,0" ToolTip="Duration" />
+                                                        <TextBox Grid.Column="4" Text="{Binding Quantity, TargetNullValue=''}" Margin="3,0,0,0" ToolTip="Qty" />
+                                                        <Button Grid.Column="5" Content="✕" Width="24" Height="24" Margin="4,0,0,0" Padding="0" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <Button Content="+ Add Item" Style="{StaticResource Button.Secondary}" Margin="0,4,0,0"
+                                                Command="{Binding AddItemCommand}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Content="+ Add Prescription" Style="{StaticResource Button.Primary}" Margin="0,6,0,0"
+                            Command="{Binding AddPrescriptionCommand}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

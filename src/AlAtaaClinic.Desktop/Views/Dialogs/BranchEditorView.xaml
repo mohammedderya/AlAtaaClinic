@@ -1,0 +1,42 @@
+<UserControl x:Class="AlAtaaClinic.Desktop.Views.Dialogs.BranchEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:AlAtaaClinic.Desktop.Controls">
+    <StackPanel>
+        <controls:ValidationSummary Messages="{Binding ValidationMessages}" Margin="0,0,0,16" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Text="Branch Code" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding BranchCode, UpdateSourceTrigger=PropertyChanged}"
+                         IsReadOnly="{Binding IsEditMode}" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Arabic Name" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding ArabicName, UpdateSourceTrigger=PropertyChanged}"
+                         FlowDirection="RightToLeft" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Margin="0,12,0,0">
+                <TextBlock Text="English Name" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding EnglishName, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,12,0,0">
+                <TextBlock Text="Phone Number" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Margin="0,12,0,0">
+                <TextBlock Text="Address" Style="{StaticResource Text.Muted}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding AddressLine, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

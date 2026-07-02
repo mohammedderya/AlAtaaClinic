@@ -1,0 +1,203 @@
+<Window x:Class="AlAtaaClinic.Desktop.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Al Ataa Clinic Login"
+        Width="980"
+        Height="620"
+        MinWidth="860"
+        MinHeight="560"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.1*" />
+            <ColumnDefinition Width="0.9*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Background="{DynamicResource Brush.Navigation}"
+                CornerRadius="0,24,24,0"
+                Padding="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel VerticalAlignment="Center"
+                            Margin="48,0,44,0">
+                    <Border Width="48"
+                            Height="48"
+                            CornerRadius="12"
+                            Background="{DynamicResource Brush.PrimaryGradient}"
+                            Margin="0,0,0,24"
+                            HorizontalAlignment="Left">
+                        <TextBlock Text="A"
+                                   FontFamily="{StaticResource Font.App}"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="جمعية العطاء الخيرية الطبية"
+                               Foreground="{DynamicResource Brush.NavigationText}"
+                               FontFamily="{StaticResource Font.App}"
+                               FontSize="30"
+                               FontWeight="SemiBold"
+                               FlowDirection="RightToLeft"
+                               TextAlignment="Left"
+                               TextWrapping="Wrap" />
+                    <TextBlock Text="Al Ataa Charitable Medical Association"
+                               Foreground="{DynamicResource Brush.NavigationText}"
+                               FontFamily="{StaticResource Font.App}"
+                               FontSize="15"
+                               FontWeight="Medium"
+                               Margin="0,8,0,0"
+                               Opacity="0.85" />
+                    <Border Width="40"
+                            Height="3"
+                            CornerRadius="1.5"
+                            Background="{DynamicResource Brush.Accent}"
+                            HorizontalAlignment="Left"
+                            Margin="0,20,0,0" />
+                    <TextBlock Text="Clinic Management System"
+                               Foreground="{DynamicResource Brush.NavigationText}"
+                               FontFamily="{StaticResource Font.App}"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Margin="0,16,0,0" />
+                    <TextBlock Text="Secure access for reception, clinical, billing, charity, inventory, and management workflows."
+                               Foreground="{DynamicResource Brush.NavigationText}"
+                               Opacity="0.65"
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               Margin="0,10,0,0"
+                               MaxWidth="340" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="1"
+                            Margin="48,0,44,36"
+                            Orientation="Horizontal">
+                    <Border Width="8"
+                            Height="8"
+                            CornerRadius="4"
+                            Background="{DynamicResource Brush.Primary}"
+                            Opacity="0.5"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center" />
+                    <Border Width="8"
+                            Height="8"
+                            CornerRadius="4"
+                            Background="{DynamicResource Brush.Accent}"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center" />
+                    <Border Width="8"
+                            Height="8"
+                            CornerRadius="4"
+                            Background="{DynamicResource Brush.NavigationText}"
+                            Opacity="0.3"
+                            VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="1"
+              Margin="48,36,48,36"
+              Background="{DynamicResource Brush.Background}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Margin="0,0,0,24">
+                <TextBlock Text="Welcome Back"
+                           FontFamily="{StaticResource Font.App}"
+                           FontSize="26"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource Brush.Text}" />
+                <TextBlock Text="Sign in to your clinic dashboard"
+                           Style="{StaticResource Text.Muted}"
+                           Margin="0,6,0,0" />
+            </StackPanel>
+
+            <Border Grid.Row="1"
+                    Style="{StaticResource Card}"
+                    Padding="32"
+                    VerticalAlignment="Top"
+                    CornerRadius="14">
+                <StackPanel>
+                    <TextBlock Text="Sign in"
+                               FontFamily="{StaticResource Font.App}"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource Brush.Text}" />
+                    <TextBlock Text="Enter your credentials to continue"
+                               Style="{StaticResource Text.Muted}"
+                               Margin="0,4,0,24" />
+
+                    <TextBlock Text="Username"
+                               FontFamily="{StaticResource Font.Body}"
+                               FontSize="13"
+                               FontWeight="Medium"
+                               Foreground="{DynamicResource Brush.TextMuted}"
+                               Margin="0,0,0,6" />
+                    <TextBox x:Name="UsernameInput"
+                             Margin="0,0,0,16"
+                             FontSize="14" />
+
+                    <TextBlock Text="Password"
+                               FontFamily="{StaticResource Font.Body}"
+                               FontSize="13"
+                               FontWeight="Medium"
+                               Foreground="{DynamicResource Brush.TextMuted}"
+                               Margin="0,0,0,6" />
+                    <PasswordBox x:Name="PasswordInput"
+                                 Margin="0,0,0,20"
+                                 FontSize="14" />
+
+                    <TextBlock x:Name="ErrorText"
+                               Foreground="{DynamicResource Brush.Danger}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,14" />
+
+                    <Button Content="Sign in"
+                            Click="SignIn_Click"
+                            IsDefault="True"
+                            Style="{StaticResource Button.Primary}"
+                            HorizontalAlignment="Stretch"
+                            FontSize="14"
+                            MinHeight="44" />
+
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0"
+                                Height="1"
+                                Background="{DynamicResource Brush.Border}"
+                                VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1"
+                                   Text="or"
+                                   Style="{StaticResource Text.Muted}"
+                                   Margin="14,0" />
+                        <Border Grid.Column="2"
+                                Height="1"
+                                Background="{DynamicResource Brush.Border}"
+                                VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Button Content="Switch Theme"
+                            Command="{Binding ToggleThemeCommand}"
+                            Style="{StaticResource Button.Secondary}"
+                            Margin="0,16,0,0"
+                            HorizontalAlignment="Stretch"
+                            FontSize="13"
+                            MinHeight="42" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

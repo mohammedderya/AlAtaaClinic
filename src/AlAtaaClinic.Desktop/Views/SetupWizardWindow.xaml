@@ -1,0 +1,140 @@
+<Window x:Class="AlAtaaClinic.Desktop.Views.SetupWizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:AlAtaaClinic.Desktop.ViewModels"
+        Title="Al Ataa Clinic - Setup"
+        Width="620" Height="620"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#FFFFFF">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Padding="32,28,32,20">
+            <StackPanel>
+                <Grid Width="52" Height="52" HorizontalAlignment="Left" Margin="0,0,0,16">
+                    <Ellipse>
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#0891B2" Offset="0" />
+                                <GradientStop Color="#06B6D4" Offset="1" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Text="AC" Foreground="White" FontFamily="Poppins" FontSize="16"
+                               FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+                <TextBlock Text="Al Ataa Clinic Setup" FontFamily="Poppins" FontSize="24"
+                           FontWeight="SemiBold" Foreground="#1F2937" />
+                <TextBlock Text="Configure your clinic management system" FontFamily="Inter" FontSize="13"
+                           Foreground="#6B7280" Margin="0,6,0,0" />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Margin="32,0,32,0" Padding="24" CornerRadius="12"
+                Background="#F9FAFB" BorderBrush="#E5E7EB" BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Step 1: Clinic Info -->
+                    <StackPanel Visibility="{Binding IsStep1, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="{Binding StepTitle}" FontFamily="Poppins" FontSize="16"
+                                   FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,20" />
+                        <TextBlock Text="Clinic Name" FontFamily="Inter" FontSize="12" Foreground="#6B7280" Margin="0,0,0,6" />
+                        <TextBox Text="{Binding ClinicName, UpdateSourceTrigger=PropertyChanged}" FontFamily="Inter" />
+                    </StackPanel>
+
+                    <!-- Step 2: Database -->
+                    <StackPanel Visibility="{Binding IsStep2, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="{Binding StepTitle}" FontFamily="Poppins" FontSize="16"
+                                   FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,20" />
+
+                        <TextBlock Text="Authentication" FontFamily="Inter" FontSize="12" Foreground="#6B7280" Margin="0,0,0,6" />
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <RadioButton Content="Windows Authentication"
+                                         IsChecked="{Binding IsWindowsAuth}"
+                                         FontFamily="Inter" FontSize="13" Margin="0,0,20,0" />
+                            <RadioButton Content="SQL Server (Docker)"
+                                         IsChecked="{Binding IsSqlAuth}"
+                                         FontFamily="Inter" FontSize="13" />
+                        </StackPanel>
+
+                        <TextBlock Text="Server Name" FontFamily="Inter" FontSize="12" Foreground="#6B7280" Margin="0,0,0,6" />
+                        <TextBox Text="{Binding ServerName, UpdateSourceTrigger=PropertyChanged}" FontFamily="Inter" />
+                        <TextBlock Text="Database Name" FontFamily="Inter" FontSize="12" Foreground="#6B7280" Margin="0,12,0,6" />
+                        <TextBox Text="{Binding DatabaseName, UpdateSourceTrigger=PropertyChanged}" FontFamily="Inter" />
+
+                        <StackPanel Visibility="{Binding ShowSqlCredentials, Converter={StaticResource BoolToVis}}"
+                                    Margin="0,16,0,0">
+                            <Border Background="#FEF3C7" CornerRadius="8" Padding="12" Margin="0,0,0,12">
+                                <TextBlock Text="For Docker: Server=localhost,1433, User=sa, Pass=YourStrong!Pass1"
+                                           FontFamily="Inter" FontSize="11" Foreground="#92400E" TextWrapping="Wrap" />
+                            </Border>
+                            <TextBlock Text="Username" FontFamily="Inter" FontSize="12" Foreground="#6B7280" Margin="0,0,0,6" />
+                            <TextBox Text="{Binding SqlUsername, UpdateSourceTrigger=PropertyChanged}" FontFamily="Inter" />
+                            <TextBlock Text="Password" FontFamily="Inter" FontSize="12" Foreground="#6B7280" Margin="0,12,0,6" />
+                            <TextBox Text="{Binding SqlPassword, UpdateSourceTrigger=PropertyChanged}" FontFamily="Inter" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Step 3: License -->
+                    <StackPanel Visibility="{Binding IsStep3, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="{Binding StepTitle}" FontFamily="Poppins" FontSize="16"
+                                   FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,20" />
+                        <TextBlock Text="Enter your license key" FontFamily="Inter" FontSize="12" Foreground="#6B7280" Margin="0,0,0,6" />
+                        <TextBox Text="{Binding LicenseKey, UpdateSourceTrigger=PropertyChanged}" FontFamily="Inter" />
+                        <Border Background="#FEF3C7" CornerRadius="8" Padding="12" Margin="0,16,0,0">
+                            <TextBlock Text="14-day trial available. Leave empty for trial mode."
+                                       FontFamily="Inter" FontSize="12" Foreground="#92400E" TextWrapping="Wrap" />
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Step 4: Complete -->
+                    <StackPanel Visibility="{Binding IsStep4, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="{Binding StepTitle}" FontFamily="Poppins" FontSize="16"
+                                   FontWeight="SemiBold" Foreground="#1F2937" Margin="0,0,0,20" />
+                        <Border Background="#D1FAE5" CornerRadius="10" Padding="16" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="Your clinic management system is ready." FontFamily="Inter"
+                                           FontSize="13" Foreground="#065F46" />
+                                <TextBlock Text="Default login: admin / admin123" FontFamily="Inter"
+                                           FontSize="12" Foreground="#065F46" Margin="0,8,0,0" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding StatusMessage}" FontFamily="Inter" FontSize="12"
+                               Foreground="#EF4444" Margin="0,12,0,0" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Border Grid.Row="2" Padding="32,16,32,24">
+            <Grid>
+                <Button Content="Back" Command="{Binding BackCommand}"
+                        IsEnabled="{Binding CanGoBack}"
+                        FontFamily="Poppins" FontSize="13" FontWeight="SemiBold"
+                        Padding="20,10" Cursor="Hand"
+                        Background="White" Foreground="#1F2937"
+                        BorderBrush="#E5E7EB" BorderThickness="1.5" />
+                <Button Grid.Column="1" Content="{Binding NextButtonText}" Command="{Binding NextCommand}"
+                        FontFamily="Poppins" FontSize="13" FontWeight="SemiBold"
+                        Padding="20,10" Cursor="Hand" HorizontalAlignment="Right"
+                        Foreground="White" BorderThickness="0">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#0891B2" Offset="0" />
+                            <GradientStop Color="#06B6D4" Offset="1" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,8 @@
+RunAsync: Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.Write[T](DiagnosticListener diagnosticSource, String name, T value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at AlAtaaClinic.Desktop.App.RunAsync() in C:\Users\moo3i\OneDrive\Desktop\Al_Ataa\src\AlAtaaClinic.Desktop\App.xaml.cs:line 36

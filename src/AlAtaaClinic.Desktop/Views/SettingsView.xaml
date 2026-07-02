@@ -1,0 +1,45 @@
+<UserControl x:Class="AlAtaaClinic.Desktop.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:l="clr-namespace:AlAtaaClinic.Desktop.Common"
+             xmlns:services="clr-namespace:AlAtaaClinic.Desktop.Services">
+    <ScrollViewer Background="{DynamicResource Brush.BackgroundAlt}"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="28,24,28,28">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{l:Loc PageTitle.Settings}" Style="{StaticResource Text.PageTitle}" />
+            <StackPanel Grid.Row="1" Margin="0,16,0,0" MaxWidth="680">
+                <Border Style="{StaticResource Card}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="{l:Loc Common.Theme}" Style="{StaticResource Text.SectionTitle}" />
+                            <TextBlock Text="{Binding ThemeName, StringFormat={}Current: {0}}" Style="{StaticResource Text.Muted}" Margin="0,6,0,0" />
+                        </StackPanel>
+                        <Button Grid.Column="1" Content="{l:Loc Common.Theme}" Style="{StaticResource Button.Primary}" Command="{Binding ToggleThemeCommand}" />
+                    </Grid>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="0,16,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="{l:Loc Common.Language}" Style="{StaticResource Text.SectionTitle}" />
+                            <TextBlock Text="{Binding CurrentLanguage, StringFormat={}{0}}" Style="{StaticResource Text.Muted}" Margin="0,6,0,0" />
+                        </StackPanel>
+                        <Button Grid.Column="1" Content="{l:Loc Common.Language}" Style="{StaticResource Button.Primary}" Command="{Binding SwitchLanguageCommand}" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

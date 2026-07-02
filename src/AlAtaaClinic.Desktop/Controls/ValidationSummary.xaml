@@ -1,0 +1,17 @@
+<UserControl x:Class="AlAtaaClinic.Desktop.Controls.ValidationSummary"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Background="{DynamicResource Brush.SurfaceAlt}"
+            BorderBrush="{DynamicResource Brush.Danger}"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="10">
+        <ItemsControl ItemsSource="{Binding Messages, RelativeSource={RelativeSource AncestorType=UserControl}}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="{DynamicResource Brush.Danger}" Margin="0,2" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Border>
+</UserControl>
