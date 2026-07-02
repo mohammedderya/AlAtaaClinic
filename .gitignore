@@ -1,0 +1,10 @@
+bin/
+obj/
+publish/
+dist/
+installer/redist/
+*.user
+.vs/
+*.suo
+crash.log
+logs/
